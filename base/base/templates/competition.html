@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="text-align: left; width: 100%; margin-top: 100px; margin-bottom: 100px;">
+    <div class="competition-name">Название соревнования</div>
+    <a href="/games/mygames/" style="text-decoration: none;">
+        <div class="back-button">
+            ←
+        </div>
+    </a>
+    
+    {% for gs in games %}
+    <div class="stage">
+        <h2>1/{{2**(gs[0].rank-1)}} финала</h2>
+        <div class="matches-container">
+            {% for i in gs %}
+                <div onclick="ShowPopUp({{i.id}})" class="matches-row">
+                    <div class="match upcoming">
+                        <div class="match-title">Матч {{i.id}}</div>
+                        <div>{{i.datetime}}</div>
+                    </div>
+                </div>
+                <div id="{{i.id}}" class="phone-container">
+                    <div class="content-panel">
+                        <div class="back-button" onclick="HidePopUp({{i.id}})">
+                            ←
+                        </div>
+                        
+                        <div class="header">1/{{2**(gs[0].rank-1)}} финала  Матч N{{i.id}}</div>
+                        
+                        <div class="teams-container">
+                            <div class="team">
+                                <div class="team-box">
+                                    <div class="team-name">{{i.player1}}</div>
+                                </div>
+                            </div>
+                            
+                            <div class="vs">VS</div>
+                            
+                            <div class="team">
+                                <div class="team-box">
+                                    <div class="team-name">{{i.player2}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        {% if user.role == 1 %}
+                            <form>
+                                <input type="number" name="" id="c1" style="width: 50px;">
+                                    <span>:</span>
+                                <input style="width: 50px;" type="number" name="" id="c2">
+                                <button type="submit" onclick="PostCounts({{i.id}}, document.getElementById('c1').value, document.getElementById('c2').value,)">Выставить очки</button>
+                            </form>
+                            <script>
+                                function PostCounts(id, con1, con2) {
+                                    $.get('/games/edit_game/'+id+'/'+String(con1)+'/'+String(con2)+'/');
+                                }
+                            </script>
+                        {% else %}
+                            <h2>{{i.count1}} : {{i.count2}}</h2>
+                        {% endif %}
+                        
+                        
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+        
+        <br>
+    {% endfor %}
+    <h2><b>Где:</b> {{comp.place}}</h2>
+    <h2><b>Когда:</b> {{comp.datetime}}</h2>
+    <h2><b>Что:</b> {{comp.get_type_game_display()}} {% if comp.command %}
+        (Командное)
+    {% else %}
+        (Индивидуальное)
+    {% endif %}</h2>
+</div>
+
+<script>   
+    function ShowPopUp(id) {
+        let popup = document.getElementById(String(id));
+        popup.style.display = 'block';
+       
+    }
+    function HidePopUp(id) {
+        let popup = document.getElementById(String(id));
+        popup.style.display = 'none';
+    }
+
+</script>
+{% endblock content %}

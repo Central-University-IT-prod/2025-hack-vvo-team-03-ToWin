@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container" style="margin-top: 100px;">
+    <h2>Регистрация</h2>
+    <form action="{{url('register')}}" method="post">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}"> 
+        <div class="input-group">
+        <label for="name">Имя/название команды</label>
+            {{form.username}}
+        </div>
+        <div class="checkbox-group">
+            <input type="checkbox" id="consent">
+            <label for="consent">Зарегистрироваться как команда</label>
+        </div>
+        <div class="input-group">
+            <label for="password">Пароль</label>
+            {{form.password1}}
+        </div>
+        <button class="register-btn">Регистрация</button>
+    </form>
+</div>
+{% endblock content %}

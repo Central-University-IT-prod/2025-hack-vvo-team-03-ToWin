@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% if user.role == 0 %}
+        <div style="margin-top: 100px; padding-bottom: 100px;">
+            <div class="out-comp">
+                {% for comp in competitions %}
+                    <a href="/games/comp/{{comp.id}}/">
+                        <div class="card">
+                            <img src="/static/main/img/basketball.jpg" alt="Football Match">
+                            <div class="status"></div>
+                            <div class="date">{{comp.datetime}}</div>
+                            <div class="card-content">
+                                <div class="title">{{comp.name}}</div>
+                                <div class="players">
+                                    <span>{{comp.count_player_now}}/{{comp.count_player_max}} чел.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <a href="/games/create/"><button class="new-event-button">+ Новое событие</button></a>
+        <div style="margin-top: 100px; padding-bottom: 100px;">
+            <div class="out-comp">
+                {% for comp in competitions %}
+                    <a href="/games/comp/{{comp.id}}/">
+                        <div class="card">
+                            <img src="/static/main/img/basketball.jpg" alt="Football Match">
+                            <div class="status"></div>
+                            <div class="date">{{comp.datetime}}</div>
+                            <div class="card-content">
+                                <div class="title">{{comp.name}}</div>
+                                <div class="players">
+                                    <span>{{comp.count_player_now}}/{{comp.count_player_max}} чел.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock content %}

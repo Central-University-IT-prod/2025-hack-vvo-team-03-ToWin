@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div style="margin-top: 100px; padding-bottom: 100px;">
+        <div class="out-comp">
+            {% for comp in competitions %}
+                <a onclick="ShowPopUp({{comp.id}})">
+                    <div class="card">
+                        <img src="/static/main/img/basketball.jpg" alt="Football Match">
+                        <div class="status"></div>
+                        <div class="date">{{comp.datetime}}</div>
+                        <div class="card-content">
+                            <div class="title">{{comp.name}}</div>
+                            <div class="players">
+                                <span>{{comp.count_player_now}}/{{comp.count_player_max}} чел.</span>
+                                {% if inf_join[comp.id] %}
+                                    <div class="add-button">✓</div>
+                                {% else %}
+                                    <a href="/games/join/{{comp.id}}/"><div class="add-button">+</div></a>
+                                {% endif %}
+                                
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+   
+    <script>   
+        function ShowPopUp(id) {
+            let popup = document.getElementById('competitionPopup');
+            popup.style.display = 'block';
+           
+        }
+        function HidePopUp() {
+            let popup = document.getElementById('competitionPopup');
+            popup.style.display = 'none';
+        }
+    </script>
+    
+{% endblock content %}

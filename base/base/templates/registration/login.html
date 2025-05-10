@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container" style="margin-top: 100px;">
+    <h2>Авторизация</h2>
+    <form action="{{url('login')}}" method="post">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}"> 
+        <div class="input-group">
+        <label for="name">Имя/название команды</label>
+            {{form.username}}
+        </div>
+        <div class="input-group">
+            <label for="password">Пароль</label>
+            {{form.password}}
+        </div>
+        <button class="register-btn">Авторизация</button>
+    </form>
+    <h3>Нет аккаунта? <a href="/users/register/">Зарегистрироваться</a></h3>
+</div>
+    
+    
+{% endblock content %}

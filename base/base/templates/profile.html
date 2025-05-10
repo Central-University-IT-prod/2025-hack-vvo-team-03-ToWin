@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="profile-info" style="margin-top: 100px;">
+        <div class="avatar">
+            <img src="{{static('main/img/profile-circle-fill.svg')}}" alt="Аватар">
+        </div>
+        <h2>Логин: {{user.username}}</h2>
+    </div>
+    
+{% endblock content %}

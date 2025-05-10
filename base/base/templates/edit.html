@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Страница редактирования {% if section %}
+    раздела
+{% elif exhibit %}
+    экспоната
+{% elif game %}
+    игры
+{% else %}
+    вопроса
+{% endif %}</h2>
+<hr>
+    {% if form %}
+        {% if exhibit %}
+            <img style="width: 150px; height: 150px;" src="/media/{{exhibit.image}}/" alt="Фото не добавлено"> <br> <br>
+        {% endif %}
+        
+        <form action="" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}"> 
+            {{form}}
+            <br> <button type="submit" class="btn btn-primary">Изменить</button> <br> <br>
+        </form>
+        {% if section %}
+            <a href="/api/delete/sec/{{section.id}}"><button class="btn btn-primary">Удалить</button></a>
+        {% elif game %}
+            <a href="/api/delete/gam/{{game.id}}"><button class="btn btn-primary">Удалить</button></a>
+        {% elif exhibit %}
+            <a href="/api/delete/exh/{{exhibit.id}}"><button class="btn btn-primary">Удалить</button></a>
+        {% else %}
+            <a href="/api/delete/que/{{que.id}}"><button class="btn btn-primary">Удалить</button></a>
+        {% endif %}
+
+    {% endif %}
+{% endblock content %}
